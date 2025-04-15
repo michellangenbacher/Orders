@@ -5,7 +5,7 @@
 namespace Orders.Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class addContriesEntities : Migration
+    public partial class AddTableContries : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
