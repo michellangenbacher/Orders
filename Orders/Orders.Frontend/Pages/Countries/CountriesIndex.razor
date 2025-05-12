@@ -1,11 +1,17 @@
 ﻿@page "/countries" 
+@using Orders.Frontend.Shared
 
-@inject IRepository repository
 
 <h3>Paises</h3>
 <div class="mb-3"> <a class="btn btn-primary" href="/countries/create">Nuevo País</a> </div>
 
-<GenericList MyList="Countries"> 
+@* @if (Countries == null)
+{
+    <p>Cargando..</p>
+}
+else
+{ *@
+    <GenericList MyList="Countries"> 
     <Body> 
         <table class="table table-striped"> 
             <thead> 
@@ -17,23 +23,17 @@
                 @foreach (var country in Countries!) 
                 { 
                     <tr> 
-                        <td> @country.Name </td> 
-                        <td> <a class="btn btn-warning">Editar</a> 
-                             <button class="btn btn-danger">Borrar</button>
-                        </td> 15
+                        <td> @country.Name </td>
+                        <td>
+                            <a href="/countries/edit/@country.Id" class="btn btn-warning">Editar</a>                            
+                            <button class="btn btn-danger" @onclick=@(() => DeleteAsync(country))>Borrar</button>
+                        </td> 
                     </tr> 
                 } 
    </tbody> 
 </table> 
 </Body>
 </GenericList>
+@* }
+ *@
 
-@code { 
-    public List<Country>? Countries { get; set; }
-
-protected async override Task OnInitializedAsync() 
-{ 
-    var responseHppt = await repository.GetAsync<List<Country>>("api/countries"); 
-    Countries = responseHppt.Response; 
-}
-}
